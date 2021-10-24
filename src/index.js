@@ -34,6 +34,7 @@ Vue.component("video-player-controls", {
         <button class="c-video-player-controls__volume" @click="toggleVolume">
           <i v-if="volume === 1" class="material-icons">volume_up</i>
           <i v-if="volume === 0" class="material-icons">volume_off</i>
+          {{ volume }}
         </button>
         <div class="c-video-player-controls__time">
           {{ currentTime | prettyTime }} / {{ duration | prettyTime }}
@@ -129,7 +130,14 @@ Vue.component("video-player-controls", {
       this.video.playbackRate = event.target.value;
     },
     toggleVolume() {
-      this.video.volume = this.volume = this.volume === 1 ? 0 : 1;
+      this.volume = this.volume === 1 ? 0 : 1;
+      if (this.volume === 0) {
+        this.video.muted = true;
+        this.video.volume = 0;
+      } else {
+        this.video.muted = false;
+        this.video.volume = 1;
+      }
     },
     toggleFullscreen() {
       if (this.video.requestFullscreen) {
