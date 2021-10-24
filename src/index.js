@@ -34,7 +34,6 @@ Vue.component("video-player-controls", {
         <button class="c-video-player-controls__volume" @click="toggleVolume">
           <i v-if="volume === 1" class="material-icons">volume_up</i>
           <i v-if="volume === 0" class="material-icons">volume_off</i>
-          {{ volume }}
         </button>
         <div class="c-video-player-controls__time">
           {{ currentTime | prettyTime }} / {{ duration | prettyTime }}

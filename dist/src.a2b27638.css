@@ -154,8 +154,8 @@
 }
 
 .c-video-player-controls__progress {
-  flex-basis: 20%;
   background-color: #039be5;
+  border-right: 4px solid #fff;
 }
 
 .c-video-player-controls__progress-time {
