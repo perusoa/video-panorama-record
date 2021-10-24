@@ -276,6 +276,8 @@ Vue.component("video-player-controls", {
         this.video.webkitRequestFullscreen();
       } else if (this.video.msRequestFullscreen) {
         this.video.msRequestFullscreen();
+      } else if (this.video.webkitEnterFullScreen) {
+        this.video.webkitEnterFullScreen();
       }
     },
     initializeVideoStream: function initializeVideoStream() {
@@ -588,7 +590,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56573" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58396" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

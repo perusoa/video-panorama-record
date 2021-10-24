@@ -145,6 +145,8 @@ Vue.component("video-player-controls", {
         this.video.webkitRequestFullscreen();
       } else if (this.video.msRequestFullscreen) {
         this.video.msRequestFullscreen();
+      } else if (this.video.webkitEnterFullScreen) {
+        this.video.webkitEnterFullScreen();
       }
     },
     initializeVideoStream () {
