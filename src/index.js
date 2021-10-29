@@ -166,11 +166,11 @@ Vue.component("video-player-controls", {
       });
 
       this.mediaRecorder.addEventListener('stop', (e) => {
-        const videoBlob = new Blob(this.videoChunks, { 'type': 'video/mp4' });
+        const videoBlob = new Blob(this.videoChunks, { 'type': 'video/webm' });
         this.videoChunks = [];
         this.clippedVideo = URL.createObjectURL(videoBlob);
         if (window.confirm('Are you sure you want to download this clip?')) {
-          this.downloadVideoFile(videoBlob, uuidv4() + '.mp4');
+          this.downloadVideoFile(videoBlob, uuidv4() + '.webm');
         }
       });
     },
