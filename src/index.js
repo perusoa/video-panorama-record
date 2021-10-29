@@ -263,7 +263,7 @@ Vue.component("video-player", {
         <div class="c-video-player__help-text" ref="panoramaHelpText">Click &amp; Drag To Navigate Panorama</div>
         <canvas ref="panorama" class="c-video-player__canvas"></canvas>
         <video-player-controls
-          v-if="video"
+          v-if="video && panorama"
           :video="video"
           :current-time="currentTime"
           :duration="duration"
@@ -275,13 +275,18 @@ Vue.component("video-player", {
       </div>
       <div class="c-video-player__video" :class="{ 'c-video-player__video--panorama': isPanoramaMode }">
         <video
+          data-id="<%= @game.id %>"
+          data-user="<%= current_user.email %>"
+          data-clip-settings="<%= ClipSetting.first.max_clips %>"
+          data-download-clip="<%= @user_game.download_full_clip %>"
+          data-download-partial-clip="<%= @user_game.download_partial_clip %>"
+          data-refund-payment="<%= @refunded_payments %>"
           ref="video"
           class="c-video-player__player"
           :src="currentVideo"
           width="3840"
           height="900"
           playsinline
-          crossorigin="anonymous"
           @timeupdate="updateTime"
           @loadedmetadata="updateDuration"
         >
@@ -301,7 +306,7 @@ Vue.component("video-player", {
   data() {
     return {
       isLoading: false,
-      videoMode: "panorama", // 'hd' or 'panorama'
+      videoMode: "hd", // 'hd' or 'panorama'
       canvas: null,
       video: null,
       videoEl: null,

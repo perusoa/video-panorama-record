@@ -306,13 +306,13 @@ Vue.component("video-player-controls", {
       });
       this.mediaRecorder.addEventListener('stop', function (e) {
         var videoBlob = new Blob(_this.videoChunks, {
-          'type': 'video/mp4'
+          'type': 'video/webm'
         });
         _this.videoChunks = [];
         _this.clippedVideo = URL.createObjectURL(videoBlob);
 
         if (window.confirm('Are you sure you want to download this clip?')) {
-          _this.downloadVideoFile(videoBlob, uuidv4() + '.mp4');
+          _this.downloadVideoFile(videoBlob, uuidv4() + '.webm');
         }
       });
     },
@@ -402,11 +402,11 @@ Vue.component("video-player-controls", {
 });
 Vue.component("video-player", {
   props: ["hdVideoUrl", "panoramaVideoUrl"],
-  template: "\n    <div class=\"c-video-player\">\n      <div v-if=\"isPanoramaMode\" ref=\"panoramaWrapper\" class=\"c-video-player__video\">\n        <div class=\"c-video-player__help-text\" ref=\"panoramaHelpText\">Click &amp; Drag To Navigate Panorama</div>\n        <canvas ref=\"panorama\" class=\"c-video-player__canvas\"></canvas>\n        <video-player-controls\n          v-if=\"video\"\n          :video=\"video\"\n          :current-time=\"currentTime\"\n          :duration=\"duration\"\n          :video-mode=\"videoMode\"\n          :panorama=\"panorama\"\n          @change-video-mode=\"toggleVideoMode\">\n        </video-player-controls>\n        <video-player-loader v-if=\"isLoading\"></video-player-loader>\n      </div>\n      <div class=\"c-video-player__video\" :class=\"{ 'c-video-player__video--panorama': isPanoramaMode }\">\n        <video\n          ref=\"video\"\n          class=\"c-video-player__player\"\n          :src=\"currentVideo\"\n          width=\"3840\"\n          height=\"900\"\n          playsinline\n          crossorigin=\"anonymous\"\n          @timeupdate=\"updateTime\"\n          @loadedmetadata=\"updateDuration\"\n        >\n          <source :src=\"currentVideo\" type=\"video/mp4\">\n        </video>\n        <video-player-controls\n          v-if=\"video && !isPanoramaMode\"\n          :video=\"video\"\n          :current-time=\"currentTime\"\n          :duration=\"duration\"\n          :video-mode=\"videoMode\"\n          @change-video-mode=\"toggleVideoMode\">\n        </video-player-controls>\n      </div>\n    </div>\n  ",
+  template: "\n    <div class=\"c-video-player\">\n      <div v-if=\"isPanoramaMode\" ref=\"panoramaWrapper\" class=\"c-video-player__video\">\n        <div class=\"c-video-player__help-text\" ref=\"panoramaHelpText\">Click &amp; Drag To Navigate Panorama</div>\n        <canvas ref=\"panorama\" class=\"c-video-player__canvas\"></canvas>\n        <video-player-controls\n          v-if=\"video && panorama\"\n          :video=\"video\"\n          :current-time=\"currentTime\"\n          :duration=\"duration\"\n          :video-mode=\"videoMode\"\n          :panorama=\"panorama\"\n          @change-video-mode=\"toggleVideoMode\">\n        </video-player-controls>\n        <video-player-loader v-if=\"isLoading\"></video-player-loader>\n      </div>\n      <div class=\"c-video-player__video\" :class=\"{ 'c-video-player__video--panorama': isPanoramaMode }\">\n        <video\n          data-id=\"<%= @game.id %>\"\n          data-user=\"<%= current_user.email %>\"\n          data-clip-settings=\"<%= ClipSetting.first.max_clips %>\"\n          data-download-clip=\"<%= @user_game.download_full_clip %>\"\n          data-download-partial-clip=\"<%= @user_game.download_partial_clip %>\"\n          data-refund-payment=\"<%= @refunded_payments %>\"\n          ref=\"video\"\n          class=\"c-video-player__player\"\n          :src=\"currentVideo\"\n          width=\"3840\"\n          height=\"900\"\n          playsinline\n          @timeupdate=\"updateTime\"\n          @loadedmetadata=\"updateDuration\"\n        >\n          <source :src=\"currentVideo\" type=\"video/mp4\">\n        </video>\n        <video-player-controls\n          v-if=\"video && !isPanoramaMode\"\n          :video=\"video\"\n          :current-time=\"currentTime\"\n          :duration=\"duration\"\n          :video-mode=\"videoMode\"\n          @change-video-mode=\"toggleVideoMode\">\n        </video-player-controls>\n      </div>\n    </div>\n  ",
   data: function data() {
     return {
       isLoading: false,
-      videoMode: "panorama",
+      videoMode: "hd",
       // 'hd' or 'panorama'
       canvas: null,
       video: null,
@@ -590,7 +590,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58396" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51433" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
