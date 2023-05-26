@@ -306,7 +306,7 @@ Vue.component("video-player", {
   data() {
     return {
       isLoading: false,
-      videoMode: "hd", // 'hd' or 'panorama'
+      videoMode: "panorama", // 'hd' or 'panorama'
       canvas: null,
       video: null,
       videoEl: null,

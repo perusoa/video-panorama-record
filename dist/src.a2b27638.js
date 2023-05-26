@@ -406,7 +406,7 @@ Vue.component("video-player", {
   data: function data() {
     return {
       isLoading: false,
-      videoMode: "hd",
+      videoMode: "panorama",
       // 'hd' or 'panorama'
       canvas: null,
       video: null,
@@ -590,7 +590,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51433" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60403" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
